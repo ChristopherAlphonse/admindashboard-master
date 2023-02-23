@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const UserImg = "./Server/uploads/mario.jpg";
 
 const userSchema = mongoose.Schema(
   {
@@ -26,11 +27,11 @@ const userSchema = mongoose.Schema(
     photo: {
       type: String,
       required: [true, "Please add a photo"],
-      default: "https://i.ibb.co/4pDNDk1/avatar.png",
+      default: UserImg,
     },
     phone: {
       type: String,
-      default: "+234",
+      default: "123-123-1234",
     },
     bio: {
       type: String,
@@ -51,7 +52,7 @@ userSchema.pre("save", async function (next) {
 
   // Hash password
   const salt = await bcrypt.genSalt(10);
-  const hashedPassword = bcrypt.hash(this.password, salt);
+  const hashedPassword = await bcrypt.hash(this.password, salt);
   this.password = hashedPassword;
   next();
 });

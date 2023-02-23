@@ -20,7 +20,7 @@ const createProduct = asyncHandler(async (req, res) => {
     let uploadedFile;
     try {
       uploadedFile = await cloudinary.uploader.upload(req.file.path, {
-        folder: "App",
+        folder: "Pinvent App",
         resource_type: "image",
       });
     } catch (error) {

@@ -235,7 +235,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     await token.deleteOne();
   }
 
-  // Create Reste Token
+  // Create Reset Token
   let resetToken = crypto.randomBytes(32).toString("hex") + user._id;
   console.log(resetToken);
 
@@ -250,7 +250,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     userId: user._id,
     token: hashedToken,
     createdAt: Date.now(),
-    expiresAt: Date.now() + 30 * (60 * 1000), // Thirty minutes
+    expiresAt: Date.now() + 05 * (60 * 1000), // five minutes
   }).save();
 
   // Construct Reset Url
@@ -258,15 +258,363 @@ const forgotPassword = asyncHandler(async (req, res) => {
 
   // Reset Email
   const message = `
-      <h2>Hello ${user.name}</h2>
-      <p>Please use the url below to reset your password</p>  
-      <p>This reset link is valid for only 30minutes.</p>
+  <body link="#4a7eb6" vlink="#4a7eb6" alink="#4a7eb6">
+  <style>
+    @media only screen and (max-width: 600px) {
+      .main {
+        width: 320px !important;
+      }
 
-      <a href=${resetUrl} clicktracking=off>${resetUrl}</a>
+      .top-image {
+        width: 100% !important;
+      }
+      .inside-footer {
+        width: 320px !important;
+      }
+      table[class="contenttable"] {
+        width: 320px !important;
+        text-align: left !important;
+      }
+      td[class="force-col"] {
+        display: block !important;
+      }
+      td[class="rm-col"] {
+        display: none !important;
+      }
+      .mt {
+        margin-top: 15px !important;
+      }
+      *[class].width300 {
+        width: 255px !important;
+      }
+      *[class].block {
+        display: block !important;
+      }
+      *[class].blockcol {
+        display: none !important;
+      }
+      .emailButton {
+        width: 100% !important;
+      }
 
-      <p>Regards...</p>
-      <p>Pinvent Team</p>
-    `;
+      .emailButton a {
+        display: block !important;
+        font-size: 18px !important;
+      }
+    }
+  </style>
+
+  <table
+    class="main contenttable"
+    align="center"
+    style="
+      font-weight: normal;
+      border-collapse: collapse;
+      border: 0;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      color: #555559;
+      background-color: white;
+      font-size: 16px;
+      line-height: 26px;
+      width: 600px;
+    "
+  >
+    <tr>
+      <td
+        class="border"
+        style="
+          border-collapse: collapse;
+          border: 1px solid #eeeff0;
+          margin: 0;
+          padding: 0;
+          -webkit-text-size-adjust: none;
+          color: #555559;
+          font-family: Arial, sans-serif;
+          font-size: 16px;
+          line-height: 26px;
+        "
+      >
+        <table
+          style="
+            font-weight: normal;
+            border-collapse: collapse;
+            border: 0;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+          "
+        >
+          <tr>
+            <td
+              valign="top"
+              class="side title"
+              style="
+                border-collapse: collapse;
+                border: 0;
+                margin: 0;
+                padding: 20px;
+                -webkit-text-size-adjust: none;
+                color: #555559;
+                font-family: Arial, sans-serif;
+                font-size: 16px;
+                line-height: 26px;
+                vertical-align: top;
+                background-color: white;
+                border-top: none;
+              "
+            >
+              <table
+                style="
+                  font-weight: normal;
+                  border-collapse: collapse;
+                  border: 0;
+                  margin: 0;
+                  padding: 0;
+                  font-family: Arial, sans-serif;
+                "
+              >
+                <tr></tr>
+                <tr>
+                  <td
+                    class="top-padding"
+                    style="
+                      border-collapse: collapse;
+                      border: 0;
+                      margin: 0;
+                      padding: 5px;
+                      -webkit-text-size-adjust: none;
+                      color: #555559;
+                      font-family: Arial, sans-serif;
+                      font-size: 16px;
+                      line-height: 26px;
+                    "
+                  ></td>
+                </tr>
+                <tr>
+                  <td
+                    class="grey-block"
+                    style="
+                      border-collapse: collapse;
+                      border: 0;
+                      margin: 0;
+                      -webkit-text-size-adjust: none;
+                      color: #555559;
+                      font-family: Arial, sans-serif;
+                      font-size: 16px;
+                      line-height: 26px;
+                      background-color: #fff;
+                      text-align: center;
+                    "
+                  >
+                    <div class="mktEditable" id="cta">
+                      <img
+                        class="top-image"
+                        src="https://res.cloudinary.com/img-api-pager-2/image/upload/v1667612088/Noted/logo_cqd6pf.png"
+                        width="600"
+                        height="300"
+                      /><br />
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    class="top-padding"
+                    style="
+                      border-collapse: collapse;
+                      border: 0;
+                      margin: 0;
+                      padding: 15px 0;
+                      -webkit-text-size-adjust: none;
+                      color: #555559;
+                      font-family: Arial, sans-serif;
+                      font-size: 16px;
+                      line-height: 21px;
+                    "
+                  >
+                    <hr size="1" color="#eeeff0" />
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    class="text"
+                    style="
+                      border-collapse: collapse;
+                      border: 0;
+                      margin: 0;
+                      padding: 0;
+                      -webkit-text-size-adjust: none;
+                      color: #555559;
+                      font-family: Arial, sans-serif;
+                      font-size: 16px;
+                      line-height: 26px;
+                    "
+                  >
+                    <div class="mktEditable" id="main_text">
+                      <h1>Hello ${user.name},</h1>
+                      <p>
+                        We have received a password reset request from your
+                        account. If this is an error please ignore.
+                      </p>
+
+                      <a
+                        href="${resetUrl}"
+                        clicktracking="off"
+                        style="
+                          color: #ffffff;
+                          background-color: #4a7eb6;
+                          border: 10px solid #4a7eb6;
+                          border-radius: 3px;
+                          text-decoration: none;
+                        "
+                        >Reset Password</a
+                      >
+                      <br />
+                      <br />
+
+                      <div>Notice: This link expire in 5 minutes</div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    style="
+                      border-collapse: collapse;
+                      border: 0;
+                      margin: 0;
+                      padding: 0;
+                      -webkit-text-size-adjust: none;
+                      color: #555559;
+                      font-family: Arial, sans-serif;
+                      font-size: 16px;
+                      line-height: 24px;
+                    "
+                  >
+                    &nbsp;<br />
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="
+                padding: 20px;
+                font-family: Arial, sans-serif;
+                -webkit-text-size-adjust: none;
+              "
+              align="center"
+            >
+              <table>
+                <tr>
+                  <td
+                    align="center"
+                    style="
+                      font-family: Arial, sans-serif;
+                      -webkit-text-size-adjust: none;
+                      font-size: 16px;
+                    "
+                  >
+                    <a
+                      style="color: #4a7eb6"
+                      href="{{system.forwardToFriendLink}}"
+                      >Forward this Email</a
+                    >
+                    <br /><span
+                      style="
+                        font-size: 10px;
+                        font-family: Arial, sans-serif;
+                        -webkit-text-size-adjust: none;
+                      "
+                      >Please only forward this email to those who it may
+                      concern; do not share your password with anyone who may
+                      use it for malicious purposes.</span
+                    >
+                  </td>
+                </tr>
+              </table>
+              <br />
+              <table>
+                <tr>
+                  <td
+                    align="center"
+                    style="
+                      font-family: Arial, sans-serif;
+                      -webkit-text-size-adjust: none;
+                      font-size: 8px;
+                      text-decoration: none;
+                    "
+                  >
+                    <a style="color: #8c8f91" href="/">
+                      &#x2810;Terms & Conditions&#10256;
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="
+                border-collapse: collapse;
+                border: 0;
+                margin: 0;
+                padding: 0;
+                -webkit-text-size-adjust: none;
+                color: #555559;
+                font-family: Arial, sans-serif;
+                font-size: 16px;
+                line-height: 24px;
+                padding: 20px;
+              "
+            >
+              <div class="mktEditable" id="cta_try">
+                <table
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  class="mobile"
+                  style="
+                    font-weight: normal;
+                    border-collapse: collapse;
+                    border: 0;
+                    margin: 0;
+                    padding: 0;
+                    font-family: Arial, sans-serif;
+                  "
+                >
+                  <tr>
+                    <td
+                      class="force-col"
+                      valign="top"
+                      style="
+                        border-collapse: collapse;
+                        border: 0;
+                        margin: 0;
+                        padding: 0;
+                        -webkit-text-size-adjust: none;
+                        color: #555559;
+                        font-family: Arial, sans-serif;
+                        font-size: 16px;
+                        line-height: 24px;
+                      "
+                    ></td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+          <tr></tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+
+
+  `;
   const subject = "Password Reset Request";
   const send_to = user.email;
   const sent_from = process.env.EMAIL_USER;
@@ -296,7 +644,6 @@ const resetPassword = asyncHandler(async (req, res) => {
     token: hashedToken,
     expiresAt: { $gt: Date.now() },
   });
-
   if (!userToken) {
     res.status(404);
     throw new Error("Invalid or Expired Token");
