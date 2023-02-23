@@ -1,11 +1,10 @@
 {
-  "name": "backend",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
-    "checked": "ncu && ncu -u && yarn install && yarn autoclean --force"
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",

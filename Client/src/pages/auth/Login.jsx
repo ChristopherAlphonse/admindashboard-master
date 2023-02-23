@@ -58,12 +58,6 @@ const Login = () => {
       setIsLoading(false);
     }
   };
-  useEffect(() => {
-    // console.log("on reload");
-    return () => {
-      console.log("page reloaded, preventing multiple toast");
-    };
-  }, []);
 
   return (
     <div className={`container ${styles.auth}`}>

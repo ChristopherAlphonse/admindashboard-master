@@ -21,7 +21,6 @@ import Search from "../../search/Search";
 import { confirmAlert } from "react-confirm-alert";
 
 const color = "#ff4500";
-const Loader = <BarLoader color={color} speedMultiplier={2} />;
 
 const ProductList = ({ products, isLoading }) => {
   const [search, setSearch] = useState("");
@@ -98,8 +97,6 @@ const ProductList = ({ products, isLoading }) => {
             />
           </span>
         </div>
-
-        {isLoading && <Loader />}
 
         <div className="table">
           {!isLoading && products.length === 0 ? (
