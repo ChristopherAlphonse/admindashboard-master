@@ -13,6 +13,7 @@ import { Forgot, Login, Register, Reset } from "./pages/auth/AuthIndex";
 
 import Home from "./pages/Home/Home";
 import Layout from "./components/layout/Layout";
+import PageNotFound from "./pages/PageNotFound/PageNotFound";
 import ProductDetail from "./components/product/productDetail/ProductDetail";
 import { SET_LOGIN } from "./redux/features/auth/authSlice";
 import Sidebar from "./components/sidebar/Sidebar";
@@ -40,6 +41,7 @@ const App = () => {
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="*" element={<PageNotFound />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<Forgot />} />

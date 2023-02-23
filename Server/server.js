@@ -11,6 +11,7 @@ const cookieParser = require("cookie-parser");
 const path = require("path");
 
 const app = express();
+const { MSG, MONGO_URI, PORT } = process.env;
 
 app.use(express.json());
 app.use(cookieParser());
@@ -35,17 +36,18 @@ app.get("/", (req, res) => {
 
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 8000;
-const MSG = process.env.MSG;
+const port = PORT || 8000;
+
+mongoose.set("strictQuery", false);
 
 mongoose
-  .connect(process.env.MONGO_URI, {
+  .connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server Running on port 🚀 ${PORT} & ${MSG}`);
+    app.listen(port, () => {
+      console.log(`Server Running on port 🚀 ${port} & ${MSG}`);
     });
   })
   .catch((err) => console.log(err));
