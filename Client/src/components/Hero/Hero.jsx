@@ -84,11 +84,11 @@ const Hero = () => {
               </div>
             </div>
           </div>
-          <div class="w-full p-8 md:w-1/2">
+          <div className="w-full p-8 md:w-1/2">
             <img
-              class="transform transition duration-1000 ease-in-out hover:-translate-y-16"
+              className="transform transition duration-1000 ease-in-out hover:-translate-y-16"
               src={HeroImg}
-              alt=""
+              alt="Hero image"
             />
           </div>
         </div>
