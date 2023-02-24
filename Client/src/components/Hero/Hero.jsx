@@ -12,8 +12,8 @@ const Hero = () => {
   return (
     <section className="overflow-hidden">
       <div className="container mx-auto px-4">
-        <div className="-m-8 flex flex-wrap">
-          <div className="w-full p-8 md:w-1/2">
+        <div className=" flex flex-wrap">
+          <div className="w-full p-8 md:w-2/3">
             <h1 className="lg:text-10xl font-heading mb-6 text-6xl font-bold leading-none md:max-w-xl md:text-8xl">
               Discover the best inventory Manager.
             </h1>
@@ -84,9 +84,9 @@ const Hero = () => {
               </div>
             </div>
           </div>
-          <div className="w-full p-8 md:w-1/2">
+          <div className="w-full p-8 md:w-1/3 ">
             <img
-              className="transform transition duration-1000 ease-in-out hover:-translate-y-16"
+              className=" h-full    w-full max-w-xl object-cover sm:h-[calc(100%_-_2rem)] sm:self-end sm:rounded-tl-[30px] md:h-[calc(100%_-_4rem)] md:rounded-tl-[60px]"
               src={HeroImg}
               alt="Hero image"
             />
