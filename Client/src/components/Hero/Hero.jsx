@@ -5,6 +5,7 @@ import {
   TbBrandSpotify,
 } from "react-icons/tb";
 
+import HeroImg from "../../assets/heroimg.jpg";
 import React from "react";
 
 const Hero = () => {
@@ -83,10 +84,12 @@ const Hero = () => {
               </div>
             </div>
           </div>
-          <div className="w-full p-8 md:w-1/2">
-            <div className="transform transition duration-1000 ease-in-out hover:-translate-y-16">
-              <TbBrandPaypal size={60} color="blue" />
-            </div>
+          <div class="w-full p-8 md:w-1/2">
+            <img
+              class="transform transition duration-1000 ease-in-out hover:-translate-y-16"
+              src={HeroImg}
+              alt=""
+            />
           </div>
         </div>
       </div>
