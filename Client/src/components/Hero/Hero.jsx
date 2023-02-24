@@ -1,6 +1,8 @@
 import {
   TbBrandAirbnb,
   TbBrandApple,
+  TbBrandChrome,
+  TbBrandLinkedin,
   TbBrandPaypal,
   TbBrandSpotify,
 } from "react-icons/tb";
@@ -10,11 +12,11 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <section className="overflow-hidden">
+    <section className="--100vh overflow-hidden">
       <div className="container mx-auto px-4">
         <div className=" flex flex-wrap">
-          <div className="w-full p-8 md:w-2/3">
-            <h1 className="lg:text-10xl font-heading mb-6 text-6xl font-bold leading-none md:max-w-xl md:text-8xl">
+          <div className="w-full px-4 sm:px-6 sm:py-16 lg:w-1/2 ">
+            <h1 className="lg:text-10xl  md:max-w-xxl mb-6 text-6xl font-bold leading-none md:text-8xl">
               Discover the best inventory Manager.
             </h1>
             <p className="mb-11 text-lg font-medium text-gray-900 md:max-w-md">
@@ -39,23 +41,6 @@ const Hero = () => {
                   >
                     <div className="-m-1 flex flex-wrap items-center justify-center">
                       <div className="w-auto p-1">
-                        <svg
-                          width="19"
-                          height="18"
-                          viewBox="0 0 19 18"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M2.75 3.75C2.75 2.92157 3.42157 2.25 4.25 2.25H6.70943C7.03225 2.25 7.31886 2.45657 7.42094 2.76283L8.5443 6.13291C8.66233 6.48699 8.50203 6.87398 8.1682 7.0409L6.47525 7.88737C7.30194 9.72091 8.77909 11.1981 10.6126 12.0247L11.4591 10.3318C11.626 9.99796 12.013 9.83767 12.3671 9.9557L15.7372 11.0791C16.0434 11.1811 16.25 11.4677 16.25 11.7906V14.25C16.25 15.0784 15.5784 15.75 14.75 15.75H14C7.7868 15.75 2.75 10.7132 2.75 4.5V3.75Z"
-                            stroke="black"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          ></path>
-                        </svg>
-                      </div>
-                      <div className="w-auto p-1">
                         <span className="text-gray-900">Book a call</span>
                       </div>
                     </div>
@@ -69,26 +54,31 @@ const Hero = () => {
             <div className="-m-3 flex flex-wrap">
               <div className="w-auto p-3">
                 <div>
-                  <TbBrandSpotify size={50} color="green" />
+                  <TbBrandSpotify size={50} color="#1DB954" />
                 </div>
               </div>
               <div className="w-auto p-3">
                 <div>
-                  <TbBrandApple size={50} color="black" />
+                  <TbBrandApple size={50} color="gray" />
                 </div>
               </div>
               <div className="w-auto p-3">
                 <div>
-                  <TbBrandAirbnb size={50} color="red" />
+                  <TbBrandAirbnb size={50} color="#FF5A5F" />
+                </div>
+              </div>
+              <div className="w-auto p-3">
+                <div>
+                  <TbBrandLinkedin size={50} color="#0e76a8" />
                 </div>
               </div>
             </div>
           </div>
-          <div className="w-full p-8 md:w-1/3 ">
+          <div className="relative h-20 w-full sm:h-96 lg:h-[2vh] lg:w-1/2 ">
             <img
-              className=" h-full    w-full max-w-xl object-cover sm:h-[calc(100%_-_2rem)] sm:self-end sm:rounded-tl-[30px] md:h-[calc(100%_-_4rem)] md:rounded-tl-[60px]"
+              alt="Welcome"
               src={HeroImg}
-              alt="Hero image"
+              className="rounded-tl-md rounded-br-md"
             />
           </div>
         </div>

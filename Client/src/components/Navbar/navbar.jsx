@@ -2,60 +2,75 @@ import { ShowOnLogin, ShowOnLogout } from "../../components/protect/HiddenLink";
 
 import React from "react";
 
-const Navbar = () => {
+export default function Navbar({ fixed }) {
+  const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
-    <nav className="rounded border-gray-200 bg-white px-2 py-2.5 dark:bg-gray-800 sm:px-4">
-      <div className="container mx-auto flex flex-wrap items-center justify-between">
-        <a href="/" className="flex items-center">
-          <span
-            style={{ fontFamily: "Logo" }}
-            className="self-center whitespace-nowrap text-4xl font-semibold text-gray-900"
+    <>
+      <nav className="relative mb-3 flex flex-wrap items-center justify-between  px-2 py-3">
+        <div className="container mx-auto flex flex-wrap items-center justify-between px-4">
+          <div className="relative flex w-full justify-between lg:static lg:block lg:w-auto lg:justify-start">
+            <a
+              className="mr-4 inline-block whitespace-nowrap py-2 text-[3rem] font-bold uppercase italic leading-relaxed text-black"
+              href="/"
+            >
+              INVENT
+            </a>
+            <button
+              className="block cursor-pointer rounded border border-solid border-transparent bg-transparent px-3 py-1 text-xl leading-none text-white outline-none focus:outline-none lg:hidden"
+              type="button"
+              onClick={() => setNavbarOpen(!navbarOpen)}
+            >
+              <i className="fas fa-bars"></i>
+            </button>
+          </div>
+          <div
+            className={
+              "flex-grow items-center lg:flex" +
+              (navbarOpen ? " flex" : " hidden")
+            }
+            id="example-navbar-danger"
           >
-            Invent
-          </span>
-        </a>
+            <ul className="flex list-none flex-col lg:ml-auto lg:flex-row">
+              <ul className="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:text-sm md:font-medium md:dark:bg-gray-800">
+                <li>
+                  <ShowOnLogout>
+                    <button
+                      className=" w-full rounded-sm border border-gray-300 bg-transparent py-4 px-9 font-semibold transition duration-200 ease-in-out hover:border-gray-400 hover:bg-gray-100 "
+                      type="button"
+                    >
+                      <a href="register" className="text-gray-900">
+                        {" "}
+                        Register
+                      </a>
+                    </button>
+                  </ShowOnLogout>
+                </li>
 
-        <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-          <ul className="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:text-sm md:font-medium md:dark:bg-gray-800">
-            <li>
-              <ShowOnLogout>
-                <button
-                  className=" w-full rounded-sm border border-gray-300 bg-transparent py-4 px-9 font-semibold transition duration-200 ease-in-out hover:border-gray-400 hover:bg-gray-100 "
-                  type="button"
-                >
-                  <a href="register" className="text-gray-900">
-                    {" "}
-                    Register
-                  </a>
-                </button>
-              </ShowOnLogout>
-            </li>
-
-            <li>
-              <ShowOnLogout>
-                <button
-                  className="w-full rounded-sm border border-indigo-200 bg-indigo-600  py-4 px-9 font-semibold text-white  transition duration-200 ease-in-out "
-                  type="button"
-                >
-                  <a href="login"> Login</a>
-                </button>
-              </ShowOnLogout>
-            </li>
-            <li>
-              <ShowOnLogin>
-                <a
-                  className="mr-5 block rounded py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
-                  href="/dashboard"
-                >
-                  Dashboard
-                </a>
-              </ShowOnLogin>
-            </li>
-          </ul>
+                <li>
+                  <ShowOnLogout>
+                    <button
+                      className="w-full rounded-sm border border-indigo-200 bg-indigo-600  py-4 px-9 font-semibold text-white  transition duration-200 ease-in-out "
+                      type="button"
+                    >
+                      <a href="login"> Login</a>
+                    </button>
+                  </ShowOnLogout>
+                </li>
+                <li>
+                  <ShowOnLogin>
+                    <a
+                      className="mr-5 block rounded py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+                      href="/dashboard"
+                    >
+                      Dashboard
+                    </a>
+                  </ShowOnLogin>
+                </li>
+              </ul>
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </>
   );
-};
-
-export default Navbar;
+}

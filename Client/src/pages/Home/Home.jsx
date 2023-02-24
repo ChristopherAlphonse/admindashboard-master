@@ -1,13 +1,15 @@
-import Hero from "../../components/Hero/Hero";
-import Navbar from "../../components/Navbar/navbar";
+import FooterHero from "../../components/footer/FooterHero/FooterHero.jsx";
+import Hero from "../../components/Hero/Hero.jsx";
+import NavBar from "../../components/Navbar/navbar.jsx";
 import React from "react";
 
 const Home = () => {
   return (
     <>
-      <main>
-        <Navbar />
+      <main className="bg-white">
+        <NavBar />
         <Hero />
+        <FooterHero />
       </main>
     </>
   );
