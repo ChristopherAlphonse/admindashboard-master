@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 
 const color = "#ff4500";
-const Loader = <BarLoader color={color} speedMultiplier={2} />;
+const Loader = () => <BarLoader color={color} speedMultiplier={2} />;
 
 const initialState = {
   name: "",
