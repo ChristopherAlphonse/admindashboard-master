@@ -1,14 +1,14 @@
-const dotenv = require("dotenv").config();
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const userRoute = require("./routes/userRoute");
-const productRoute = require("./routes/productRoute");
-const contactRoute = require("./routes/contactRoute");
-const errorHandler = require("./middleWare/errorMiddleware");
-const cookieParser = require("cookie-parser");
-const path = require("path");
+const dotenv = require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const userRoute = require('./routes/userRoute');
+const productRoute = require('./routes/productRoute');
+const contactRoute = require('./routes/contactRoute');
+const errorHandler = require('./middleWare/errorMiddleware');
+const cookieParser = require('cookie-parser');
+const path = require('path');
 const app = express();
 
 const { FRONTEND_URL, MONGO_URI, DB_Message, PORT } = process.env;
@@ -26,27 +26,27 @@ app.use(
   })
 );
 
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes Middleware
-app.use("/api/users", userRoute);
-app.use("/api/products", productRoute);
-app.use("/api/contactus", contactRoute);
+app.use('/api/users', userRoute);
+app.use('/api/products', productRoute);
+app.use('/api/contactus', contactRoute);
 
 // Routes
-app.get("/", (req, res) => {
-  res.send("Home Page");
+app.get('/', (req, res) => {
+  res.send('Home Page');
 });
 
 // Error Middleware
 app.use(errorHandler);
 
 // Connect to DB and start server
-mongoose.set("strictQuery", false);
+mongoose.set('strictQuery', false);
 
 const port = PORT || 5000;
-const msg = DB_Message || "DB ? ";
-mongoose.set("strictQuery", false);
+const msg = DB_Message || 'DB ? ';
+mongoose.set('strictQuery', false);
 
 mongoose
   .connect(MONGO_URI, {
@@ -59,4 +59,4 @@ mongoose
       console.log(`Server Running on port 🚀 ${port}`);
     });
   })
-  .catch((err) => console.log(err));
+  .catch(err => console.log(err));

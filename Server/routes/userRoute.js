@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 const {
   registerUser,
@@ -10,19 +10,19 @@ const {
   changePassword,
   forgotPassword,
   resetPassword,
-} = require("../controllers/userController");
+} = require('../controllers/userController');
 
 
-const protect = require("../middleWare/authMiddleware");
+const protect = require('../middleWare/authMiddleware');
 
-router.post("/register", registerUser);
-router.post("/login", loginUser);
-router.get("/logout", logout);
-router.get("/getuser", protect, getUser);
-router.get("/loggedin", loginStatus);
-router.patch("/updateuser", protect, updateUser);
-router.patch("/changepassword", protect, changePassword);
-router.post("/forgotpassword", forgotPassword);
-router.put("/resetpassword/:resetToken", resetPassword);
+router.post('/register', registerUser);
+router.post('/login', loginUser);
+router.get('/logout', logout);
+router.get('/getuser', protect, getUser);
+router.get('/loggedin', loginStatus);
+router.patch('/updateuser', protect, updateUser);
+router.patch('/changepassword', protect, changePassword);
+router.post('/forgotpassword', forgotPassword);
+router.put('/resetpassword/:resetToken', resetPassword);
 
 module.exports = router;
