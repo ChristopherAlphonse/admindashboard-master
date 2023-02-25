@@ -2,25 +2,25 @@ import React from 'react';
 
 const navbar = () => {
   return (
-    <div>
+    <div className="border-b border-paragraph">
       <header>
-        <nav className=" bg-gray-800 px-4 py-5 lg:px-6">
+        <nav className="  px-4 py-5 lg:px-6">
           <div className="mx-auto flex max-w-screen-xxl flex-wrap items-center justify-between">
             <a href="/" className="flex items-center">
-              <span className="self-center whitespace-nowrap text-3xl font-semibold  dark:text-white">
-                INVENT
+              <span className="self-center whitespace-nowrap text-3xl font-semibold  text-green-600">
+                1NVENT
               </span>
             </a>
             <div className="flex items-center lg:order-2">
               <a
                 href="#"
-                className="mr-2 rounded-lg px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-50 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-800 lg:px-5 lg:py-2.5"
+                className="ml-4 mr-2 flex transform items-center justify-center rounded-md border border-green-600 bg-white  px-5 py-2.5 font-medium uppercase text-green-700 shadow outline-none ring-offset-2 transition hover:-translate-y-1 hover:shadow-lg focus:shadow-lg focus:ring-2 focus:ring-green-600"
               >
                 Log in
               </a>
               <a
                 href="#"
-                className="mr-2  bg-primary-700 px-4 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 lg:px-5 lg:py-2.5"
+                className="flex transform items-center justify-center rounded-md bg-green-700 px-5 py-2.5 font-medium uppercase text-white shadow outline-none ring-offset-2 transition hover:-translate-y-1 hover:bg-green-800 hover:shadow-lg focus:bg-green-800 focus:shadow-lg focus:ring-2 focus:ring-green-600 active:bg-green-900"
               >
                 Get started
               </a>
@@ -75,7 +75,7 @@ const navbar = () => {
                 <li>
                   <a
                     href="#"
-                    className="block border-b border-gray-100 py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white lg:border-0 lg:p-0 lg:hover:bg-transparent lg:hover:text-primary-700 lg:dark:hover:bg-transparent lg:dark:hover:text-white"
+                    className="b block text-zinc-500 hover:text-green-600"
                   >
                     Company
                   </a>
@@ -83,7 +83,7 @@ const navbar = () => {
                 <li>
                   <a
                     href="#"
-                    className="block border-b border-gray-100 py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white lg:border-0 lg:p-0 lg:hover:bg-transparent lg:hover:text-primary-700 lg:dark:hover:bg-transparent lg:dark:hover:text-white"
+                    className="b block text-zinc-500 hover:text-green-600"
                   >
                     Marketplace
                   </a>
@@ -91,7 +91,7 @@ const navbar = () => {
                 <li>
                   <a
                     href="#"
-                    className="block border-b border-gray-100 py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white lg:border-0 lg:p-0 lg:hover:bg-transparent lg:hover:text-primary-700 lg:dark:hover:bg-transparent lg:dark:hover:text-white"
+                    className="b block text-zinc-500 hover:text-green-600"
                   >
                     Features
                   </a>
@@ -99,7 +99,7 @@ const navbar = () => {
                 <li>
                   <a
                     href="#"
-                    className="block border-b border-gray-100 py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white lg:border-0 lg:p-0 lg:hover:bg-transparent lg:hover:text-primary-700 lg:dark:hover:bg-transparent lg:dark:hover:text-white"
+                    className="b block text-zinc-500 hover:text-green-600"
                   >
                     Team
                   </a>
@@ -107,7 +107,7 @@ const navbar = () => {
                 <li>
                   <a
                     href="#"
-                    className="block border-b border-gray-100 py-2 pr-4 pl-3 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white lg:border-0 lg:p-0 lg:hover:bg-transparent lg:hover:text-primary-700 lg:dark:hover:bg-transparent lg:dark:hover:text-white"
+                    className="b block text-zinc-500 hover:text-green-600"
                   >
                     Contact
                   </a>
