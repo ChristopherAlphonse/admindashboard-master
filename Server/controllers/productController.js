@@ -3,14 +3,14 @@ const Product = require('../models/productModel');
 const { fileSizeFormatter } = require('../utils/fileUpload');
 const cloudinary = require('cloudinary').v2;
 
-// Create Prouct
+// Create Product
 const createProduct = asyncHandler(async (req, res) => {
   const { name, sku, category, quantity, price, description } = req.body;
 
-  //   Validation
+  // Validation
   if (!name || !category || !quantity || !price || !description) {
-    res.status(400);
-    throw new Error('Please fill in all fields');
+    res.status(400).json({ error: 'Please fill in all fields' });
+    return;
   }
 
   // Handle Image upload
@@ -24,8 +24,8 @@ const createProduct = asyncHandler(async (req, res) => {
         resource_type: 'image',
       });
     } catch (error) {
-      res.status(500);
-      throw new Error('Image could not be uploaded');
+      res.status(500).json({ error: 'Image could not be uploaded' });
+      return;
     }
 
     fileData = {
@@ -60,15 +60,15 @@ const getProducts = asyncHandler(async (req, res) => {
 // Get single product
 const getProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
-  // if product doesnt exist
+  // if product doesn't exist
   if (!product) {
-    res.status(404);
-    throw new Error('Product not found');
+    res.status(404).json({ error: 'Product not found' });
+    return;
   }
   // Match product to its user
   if (product.user.toString() !== req.user.id) {
-    res.status(401);
-    throw new Error('User not authorized');
+    res.status(401).json({ error: 'User not authorized' });
+    return;
   }
   res.status(200).json(product);
 });
@@ -76,15 +76,15 @@ const getProduct = asyncHandler(async (req, res) => {
 // Delete Product
 const deleteProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
-  // if product doesnt exist
+  // if product doesn't exist
   if (!product) {
-    res.status(404);
-    throw new Error('Product not found');
+    res.status(404).json({ error: 'Product not found' });
+    return;
   }
   // Match product to its user
   if (product.user.toString() !== req.user.id) {
-    res.status(401);
-    throw new Error('User not authorized');
+    res.status(401).json({ error: 'User not authorized' });
+    return;
   }
   await product.remove();
   res.status(200).json({ message: 'Product deleted.' });
@@ -97,19 +97,19 @@ const updateProduct = asyncHandler(async (req, res) => {
 
   const product = await Product.findById(id);
 
-  // if product doesnt exist
+  // if product doesn't exist
   if (!product) {
-    res.status(404);
-    throw new Error('Product not found');
-  }
-  // Match product to its user
-  if (product.user.toString() !== req.user.id) {
-    res.status(401);
-    throw new Error('User not authorized');
+    res.status(404).json({ error: 'Product not found' });
+    return;
   }
 
-  // Handle Image upload
-  let fileData = {};
+  // Update product
+  product.name = name || product.name;
+  product.category = category || product.category;
+  product.quantity = quantity || product.quantity;
+  product.price = price || product.price;
+  product.description = description || product.description;
+
   if (req.file) {
     // Save image to cloudinary
     let uploadedFile;
@@ -119,11 +119,11 @@ const updateProduct = asyncHandler(async (req, res) => {
         resource_type: 'image',
       });
     } catch (error) {
-      res.status(500);
-      throw new Error('Image could not be uploaded');
+      res.status(500).json({ error: 'Image could not be uploaded' });
+      return;
     }
 
-    fileData = {
+    product.image = {
       fileName: req.file.originalname,
       filePath: uploadedFile.secure_url,
       fileType: req.file.mimetype,
@@ -131,27 +131,9 @@ const updateProduct = asyncHandler(async (req, res) => {
     };
   }
 
-  // Update Product
-  const updatedProduct = await Product.findByIdAndUpdate(
-    { _id: id },
-    {
-      name,
-      category,
-      quantity,
-      price,
-      description,
-      image:
-        Object.keys(fileData).length === 0
-          ? product && product.image
-          : fileData,
-    },
-    {
-      new: true,
-      runValidators: true,
-    }
-  );
+  await product.save();
 
-  res.status(200).json(updatedProduct);
+  res.status(200).json(product);
 });
 
 module.exports = {
