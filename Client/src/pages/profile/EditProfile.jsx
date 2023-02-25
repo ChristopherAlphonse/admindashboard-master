@@ -96,7 +96,7 @@ const EditProfile = () => {
     <div className="profile --my2">
       {isLoading && <Loader />}
 
-      <Card cardClass={"card --flex-dir-column"}>
+      <Card cardClass="card --flex-dir-column">
         <span className="profile-photo">
           <img src={user?.photo} alt="profilepic" />
         </span>

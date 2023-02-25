@@ -135,18 +135,18 @@ const ProductList = ({ products, isLoading }) => {
                       <td className="icons">
                         <span>
                           <Link to={`/product-detail/${_id}`}>
-                            <AiOutlineEye size={25} color={"purple"} />
+                            <AiOutlineEye size={25} color="purple" />
                           </Link>
                         </span>
                         <span>
                           <Link to={`/edit-product/${_id}`}>
-                            <FaEdit size={20} color={"green"} />
+                            <FaEdit size={20} color="green" />
                           </Link>
                         </span>
                         <span>
                           <FaTrashAlt
                             size={20}
-                            color={"red"}
+                            color="red"
                             onClick={() => confirmDelete(_id)}
                           />
                         </span>

@@ -1,21 +1,20 @@
-import "./Profile.scss";
+import './Profile.scss';
 
-import { SET_NAME, SET_USER } from "../../redux/features/auth/authSlice";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
+import { SET_NAME, SET_USER } from '../../redux/features/auth/authSlice';
 
-import { BarLoader } from "react-spinners";
-import Card from "../../components/card/Card";
-import { Link } from "react-router-dom";
-import { getUser } from "../../services/authService";
-import { useDispatch } from "react-redux";
-import useRedirectLoggedOutUser from "../../customHook/useRedirectLoggedOutUser";
+import { BarLoader } from 'react-spinners';
+import Card from '../../components/card/Card';
+import { Link } from 'react-router-dom';
+import { getUser } from '../../services/authService';
+import { useDispatch } from 'react-redux';
+import useRedirectLoggedOutUser from '../../customHook/useRedirectLoggedOutUser';
 
-const color = "#ff4500";
+const color = '#ff4500';
 const Loader = <BarLoader color={color} speedMultiplier={2} />;
 
-
 const Profile = () => {
-  useRedirectLoggedOutUser("/login");
+  useRedirectLoggedOutUser('/login');
   const dispatch = useDispatch();
 
   const [profile, setProfile] = useState(null);
@@ -43,7 +42,7 @@ const Profile = () => {
         {!isLoading && profile === null ? (
           <p>Something went wrong, please reload the page...</p>
         ) : (
-          <Card cardClass={"card --flex-dir-column"}>
+          <Card cardClass="card --flex-dir-column">
             <span className="profile-photo">
               <img src={profile?.photo} alt="User's profile images" />
             </span>

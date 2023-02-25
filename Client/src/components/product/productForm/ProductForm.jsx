@@ -22,9 +22,9 @@ const ProductForm = ({
 
   return (
     <div className="add-product">
-      <Card cardClass={"card"}>
+      <Card cardClass="card">
         <form onSubmit={saveProduct}>
-          <Card cardClass={"group"}>
+          <Card cardClass="group">
             <label>Product Image</label>
             <code className="--color-dark">
               Supported Formats: jpg, jpeg, png
