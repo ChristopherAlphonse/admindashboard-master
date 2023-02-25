@@ -20,7 +20,13 @@ const Hero = () => {
               Discover the best inventory Manager.
             </h1>
             <p className="mb-11 text-lg font-medium text-gray-900 md:max-w-md">
-              Get the best-in-class professional help with a click of a button.
+              <span className="font-semibold italic text-[#4f46e5]">
+                {" "}
+                INVENT
+              </span>{" "}
+              is free inventory management software designed to help small and
+              growing businesses effortlessly manage their inventory across
+              multiple channels and devices.
             </p>
             <div className="-m-2.5 mb-20 flex flex-wrap">
               <div className="w-full p-2.5 md:w-auto">
