@@ -5,10 +5,10 @@ import {
   TbBrandLinkedin,
   TbBrandPaypal,
   TbBrandSpotify,
-} from "react-icons/tb";
+} from 'react-icons/tb';
 
-import HeroImg from "../../assets/heroimg.jpg";
-import React from "react";
+import HeroImg from '../../assets/heroimg.jpg';
+import React from 'react';
 
 const Hero = () => {
   return (
@@ -21,9 +21,9 @@ const Hero = () => {
             </h1>
             <p className="mb-11 text-lg font-medium text-gray-900 md:max-w-md">
               <span className="font-semibold italic text-[#4f46e5]">
-                {" "}
+                {' '}
                 INVENT
-              </span>{" "}
+              </span>{' '}
               is free inventory management software designed to help small and
               growing businesses effortlessly manage their inventory across
               multiple channels and devices.

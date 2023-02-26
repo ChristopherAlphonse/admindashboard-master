@@ -1,21 +1,21 @@
-import { Link, useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import { SET_LOGIN, SET_NAME } from "../../redux/features/auth/authSlice";
-import { loginUser, validateEmail } from "../../services/authService";
+import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { SET_LOGIN, SET_NAME } from '../../redux/features/auth/authSlice';
+import { loginUser, validateEmail } from '../../services/authService';
 
-import { AiOutlineLogin } from "react-icons/ai";
-import { BarLoader } from "react-spinners";
-import Card from "../../components/card/Card";
-import styles from "./auth.module.scss";
-import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { AiOutlineLogin } from 'react-icons/ai';
+import { BarLoader } from 'react-spinners';
+import Card from '../../components/card/Card';
+import styles from './auth.module.scss';
+import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 
-const color = "#ff4500";
+const color = '#ff4500';
 const Loader = () => <BarLoader color={color} speedMultiplier={2} />;
 
 const initialState = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
 };
 
 const Login = () => {
@@ -25,20 +25,20 @@ const Login = () => {
   const [formData, setformData] = useState(initialState);
   const { email, password } = formData;
 
-  const handleInputChange = (e) => {
+  const handleInputChange = e => {
     const { name, value } = e.target;
     setformData({ ...formData, [name]: value });
   };
 
-  const login = async (e) => {
+  const login = async e => {
     e.preventDefault();
 
     if (!email || !password) {
-      return toast.error("All fields are required");
+      return toast.error('All fields are required');
     }
 
     if (!validateEmail(email)) {
-      return toast.error("Please enter a valid email");
+      return toast.error('Please enter a valid email');
     }
 
     const userData = {
@@ -52,7 +52,7 @@ const Login = () => {
 
       dispatch(SET_LOGIN(true));
       dispatch(SET_NAME(data.name));
-      navigate("/dashboard");
+      navigate('/dashboard');
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
