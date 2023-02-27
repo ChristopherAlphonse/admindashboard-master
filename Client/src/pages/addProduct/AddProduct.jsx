@@ -1,16 +1,11 @@
 import React, { useState } from "react";
+
+import ProductForm from "../../components/product/productForm/ProductForm";
 import {
   createProduct,
-  selectIsLoading,
 } from "../../redux/features/product/productSlice";
-import { useDispatch, useSelector } from "react-redux";
-
-import { BarLoader } from "react-spinners";
-import ProductForm from "../../components/product/productForm/ProductForm";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-const color = "#ff4500";
-const Loader = <BarLoader color={color} speedMultiplier={2} />;
 
 const initialState = {
   name: "",
@@ -27,7 +22,7 @@ const AddProduct = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const [description, setDescription] = useState("");
 
-  const isLoading = useSelector(selectIsLoading);
+
 
   const { name, category, price, quantity } = product;
 
@@ -68,7 +63,7 @@ const AddProduct = () => {
 
   return (
     <div>
-      {isLoading && <Loader />}
+  
       <h3 className="--mt">Add New Product</h3>
       <ProductForm
         product={product}

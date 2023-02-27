@@ -1,66 +1,45 @@
-import { Link, useNavigate } from "react-router-dom";
+import "./ChangePassword.scss";
+
 import React, { useState } from "react";
-import { SET_LOGIN, SET_NAME } from "../../redux/features/auth/authSlice";
-import { registerUser, validateEmail } from "../../services/authService";
 
 import Header from "../../components/header/Header";
+import { changePassword } from "../../services/authService";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
-  name: "",
-  email: "",
+  oldPassword: "",
   password: "",
   password2: "",
 };
 
-const Register = () => {
-  const dispatch = useDispatch();
+const ChangePassword = () => {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
-  const [formData, setformData] = useState(initialState);
-  const { name, email, password, password2 } = formData;
+  const [formData, setFormData] = useState(initialState);
+  const { oldPassword, password, password2 } = formData;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setformData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: value });
   };
 
-  const register = async (e) => {
+  const changePass = async (e) => {
     e.preventDefault();
 
-    if (!name || !email || !password) {
-      return toast.error("All fields are required", { autoClose: 1100 });
-    }
-    if (password.length < 6) {
-      return toast.error("Passwords must be up to 6 characters", {
-        autoClose: 1100,
-      });
-    }
-    if (!validateEmail(email)) {
-      return toast.error("Please enter a valid email", { autoClose: 1100 });
-    }
     if (password !== password2) {
-      return toast.error("Passwords do not match", { autoClose: 1100 });
+      return toast.error("New passwords do not match");
     }
 
-    const userData = {
-      name,
-      email,
+    const formData = {
+      oldPassword,
       password,
     };
-    setIsLoading(true);
-    try {
-      const data = await registerUser(userData);
-      // console.log(data);
-      await dispatch(SET_LOGIN(true));
-      await dispatch(SET_NAME(data.name));
-      navigate("/dashboard");
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-    }
+
+    const data = await changePassword(formData);
+    toast.success(data);
+    navigate("/dashboard");
   };
+
   return (
     <div className="flex flex-col min-h-screen overflow-hidden">
       {/*  Site header */}
@@ -91,49 +70,31 @@ const Register = () => {
                         className="block text-gray-800 text-sm font-medium mb-1"
                         htmlFor="name"
                       >
-                        Name <span className="text-red-600">*</span>
+                        Old Password <span className="text-red-600">*</span>
                       </label>
                       <input
-                        type="text"
-                        placeholder="Name"
+                        type="password"
+                        placeholder="Old Password"
                         required
-                        name="name"
-                        value={name}
+                        name="oldPassword"
+                        value={oldPassword}
                         onChange={handleInputChange}
                         className="form-input w-full text-gray-800"
                       />
                     </div>
                   </div>
-                  <div className="flex flex-wrap -mx-3 mb-4">
-                    <div className="w-full px-3">
-                      <label
-                        className="block text-gray-800 text-sm font-medium mb-1"
-                        htmlFor="email"
-                      >
-                        Email <span className="text-red-600">*</span>
-                      </label>
-                      <input
-                        type="email"
-                        placeholder="Email"
-                        required
-                        name="email"
-                        value={email}
-                        onChange={handleInputChange}
-                        className="form-input w-full text-gray-800"
-                      />
-                    </div>
-                  </div>
+
                   <div className="flex flex-wrap -mx-3 mb-4">
                     <div className="w-full px-3">
                       <label
                         className="block text-gray-800 text-sm font-medium mb-1"
                         htmlFor="password"
                       >
-                        Password <span className="text-red-600">*</span>
+                        New Password <span className="text-red-600">*</span>
                       </label>
                       <input
                         type="password"
-                        placeholder="Password"
+                        placeholder="New Password"
                         required
                         name="password"
                         value={password}
@@ -148,11 +109,12 @@ const Register = () => {
                         className="block text-gray-800 text-sm font-medium mb-1"
                         htmlFor="password"
                       >
-                        Confirm Password <span className="text-red-600">*</span>
+                        Confirm New Password{" "}
+                        <span className="text-red-600">*</span>
                       </label>
                       <input
                         type="password"
-                        placeholder="Confirm Password"
+                        placeholder="Confirm New Password"
                         required
                         name="password2"
                         value={password2}
@@ -167,28 +129,11 @@ const Register = () => {
                         type="submit"
                         className="btn text-white bg-blue-600 hover:bg-blue-700 w-full"
                       >
-                        Sign up
+                        Reset Password
                       </button>
                     </div>
                   </div>
-                  <div className="text-sm text-gray-500 text-center mt-3">
-                    By creating an account, you agree to the{" "}
-                    <a className="underline" href="/terms">
-                      terms & conditions
-                    </a>
-                    .
-                  </div>
                 </form>
-
-                <div className="text-gray-600 text-center mt-6">
-                  Already have an account?{" "}
-                  <Link
-                    to="/login"
-                    className="text-blue-600 hover:underline transition duration-150 ease-in-out"
-                  >
-                    Login
-                  </Link>
-                </div>
               </div>
             </div>
           </div>
@@ -198,4 +143,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default ChangePassword;

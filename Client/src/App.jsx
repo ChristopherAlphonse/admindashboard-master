@@ -10,6 +10,7 @@ import {
 } from "./pages/PagesIndex";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Forgot, Login, Register, Reset } from "./pages/auth/AuthIndex";
+import React, { useEffect } from "react";
 
 import Home from "./pages/Home/Home";
 import Layout from "./components/layout/Layout";
@@ -21,13 +22,14 @@ import { ToastContainer } from "react-toastify";
 import axios from "axios";
 import { getLoginStatus } from "./services/authService";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
 
 axios.defaults.withCredentials = true;
 
 const App = () => {
+  
   const dispatch = useDispatch();
 
+ 
   useEffect(() => {
     const loginStatus = async () => {
       const status = await getLoginStatus();
@@ -35,7 +37,6 @@ const App = () => {
     };
     loginStatus();
   }, [dispatch]);
-
   return (
     <BrowserRouter>
       <ToastContainer />

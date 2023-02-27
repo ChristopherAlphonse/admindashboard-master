@@ -1,18 +1,23 @@
-import FooterHero from "../../components/footer/FooterHero/FooterHero.jsx";
-import Hero from "../../components/Hero/Hero.jsx";
-import NavBar from "../../components/Navbar/navbar.jsx";
+import { Footer, Header, HeroHome } from "../../partials";
+
 import React from "react";
 
-const Home = () => {
+function Home() {
   return (
-    <>
-      <main className="bg-white">
-        <NavBar />
-        <Hero />
-        <FooterHero />
+    <div className="flex flex-col min-h-screen overflow-hidden">
+      <Header />
+
+      <main className="flex-grow">
+        <HeroHome />
+      
+        
+      
+       
       </main>
-    </>
+
+      <Footer />
+    </div>
   );
-};
+}
 
 export default Home;

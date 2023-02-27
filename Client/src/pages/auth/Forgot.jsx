@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { forgotPassword, validateEmail } from "../../services/authService";
 
-import { AiOutlineMail } from "react-icons/ai";
-import Card from "../../components/card/Card";
-import { Link } from "react-router-dom";
-import styles from "./auth.module.scss";
+import Header from "../../components/header/Header";
 import { toast } from "react-toastify";
 
 const Forgot = () => {
@@ -29,38 +26,62 @@ const Forgot = () => {
   };
 
   return (
-    <div className={`container ${styles.auth}`}>
-      <Card>
-        <div className={styles.form}>
-          <div className="--flex-center">
-            <AiOutlineMail size={35} color="#999" />
-          </div>
-          <h2>Forgot Password</h2>
+    <div className="flex flex-col min-h-screen overflow-hidden">
+      {/*  Site header */}
+      <Header />
 
-          <form onSubmit={forgot}>
-            <input
-              type="email"
-              placeholder="Email"
-              required
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+      {/*  Page content */}
+      <main className="flex-grow">
+        <section className="bg-gradient-to-b from-gray-100 to-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6">
+            <div className="pt-32 pb-12 md:pt-40 md:pb-20">
+              {/* Page header */}
+              <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
+                <h1 className="h1 mb-4">Let’s get you back up on your feet</h1>
+                <p className="text-xl text-gray-600">
+                  Enter the email address you used when you signed up for your
+                  account, and we’ll email you a link to reset your password.
+                </p>
+              </div>
 
-            <button type="submit" className="--btn --btn-primary --btn-block">
-              Get Reset Email
-            </button>
-            <div className={styles.links}>
-              <p>
-                <Link to="/">- Home</Link>
-              </p>
-              <p>
-                <Link to="/login">- Login</Link>
-              </p>
+              {/* Form */}
+              <div className="max-w-sm mx-auto">
+                <form onSubmit={forgot}>
+                  <div className="flex flex-wrap -mx-3 mb-4">
+                    <div className="w-full px-3">
+                      <label
+                        className="block text-gray-800 text-sm font-medium mb-1"
+                        htmlFor="email"
+                      >
+                        Email <span className="text-red-600">*</span>
+                      </label>
+                      <input
+                        type="email"
+                        placeholder="Email"
+                        required
+                        name="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="form-input w-full text-gray-800"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap -mx-3 mt-6">
+                    <div className="w-full px-3">
+                      <button
+                        type="submit"
+                        className="btn text-white bg-blue-600 hover:bg-blue-700 w-full"
+                      >
+                        Send reset link
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
-          </form>
-        </div>
-      </Card>
+          </div>
+        </section>
+      </main>
     </div>
   );
 };
