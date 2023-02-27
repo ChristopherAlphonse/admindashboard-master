@@ -1,10 +1,9 @@
-import { Link, useParams } from "react-router-dom";
 import React, { useState } from "react";
 
 import Header from "../../components/header/Header";
-import { Logo } from "../../data";
 import { resetPassword } from "../../services/authService";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
 const initialState = {
   password: "",

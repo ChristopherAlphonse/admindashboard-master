@@ -1,58 +1,47 @@
 import { Link, useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { SET_LOGIN, SET_NAME } from "../../redux/features/auth/authSlice";
 import { loginUser, validateEmail } from "../../services/authService";
 
-import Header from "../../components/header/Header";
-import { Logo } from "../../data";
+import Header from "../../partials/Header"
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-
-const initialState = {
-  email: "",
-  password: "",
-};
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
-  const [formData, setformData] = useState(initialState);
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
   const { email, password } = formData;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setformData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: value });
   };
 
-  const login = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     if (!email || !password) {
-      return toast.error(
-        "All fields are required",
-
-        { autoClose: 1100 }
-      );
+      return toast.error("All fields are required", { autoClose: 1100 });
     }
 
     if (!validateEmail(email)) {
       return toast.error("Please enter a valid email");
     }
 
-    const userData = {
-      email,
-      password,
-    };
-    setIsLoading(true);
     try {
-      const data = await loginUser(userData);
-      await dispatch(SET_LOGIN(true));
-      await dispatch(SET_NAME(data.name));
+      const data = await loginUser({ email, password });
+      dispatch(SET_LOGIN(true));
+      dispatch(SET_NAME(data.name));
       navigate("/dashboard");
-      setIsLoading(false);
     } catch (error) {
-      setIsLoading(false);
+      console.log(error);
+      toast.error("An error occurred. Please try again later.");
     }
   };
   return (
@@ -69,16 +58,13 @@ const Login = () => {
               <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
                 <h1 className="h1">
                   Welcome Back
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-400 ">
-                    {" "}
-                    Login
-                  </span>
+                  
                 </h1>
               </div>
 
               {/* Form */}
               <div className="max-w-sm mx-auto">
-                <form onSubmit={login}>
+                <form onSubmit={handleLogin}>
                   <div className="flex flex-wrap -mx-3 mb-4">
                     <div className="w-full px-3">
                       <label

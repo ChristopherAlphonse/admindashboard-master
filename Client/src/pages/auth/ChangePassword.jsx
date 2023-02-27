@@ -63,7 +63,7 @@ const ChangePassword = () => {
 
               {/* Form */}
               <div className="max-w-sm mx-auto">
-                <form onSubmit={register}>
+                <form onSubmit={changePass}>
                   <div className="flex flex-wrap -mx-3 mb-4">
                     <div className="w-full px-3">
                       <label

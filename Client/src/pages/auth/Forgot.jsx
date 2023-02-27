@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { forgotPassword, validateEmail } from "../../services/authService";
 
-import Header from "../../components/header/Header";
+import Header from "../../partials/Header";
 import { toast } from "react-toastify";
 
 const Forgot = () => {
@@ -70,7 +70,7 @@ const Forgot = () => {
                     <div className="w-full px-3">
                       <button
                         type="submit"
-                        className="btn text-white bg-blue-600 hover:bg-blue-700 w-full"
+                        className="btn text-white bg-blue-600 hover:bg-blue-700 w-full p-2"
                       >
                         Send reset link
                       </button>
