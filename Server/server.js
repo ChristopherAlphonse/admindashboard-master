@@ -1,4 +1,5 @@
-const dotenv = require('dotenv').config();
+import dotenv from 'dotenv';
+import helmet from 'helmet';
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -8,16 +9,22 @@ const productRoute = require('./routes/productRoute');
 const contactRoute = require('./routes/contactRoute');
 const errorHandler = require('./middleWare/errorMiddleware');
 const cookieParser = require('cookie-parser');
+dotenv.config();
+
 const path = require('path');
 const app = express();
-
+app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 const { FRONTEND_URL, MONGO_URI, DB_Message, PORT } = process.env;
 
-// Middlewares
+/* CONFIGURATION */
+dotenv.config();
+const app = express();
 app.use(express.json());
-app.use(cookieParser());
-app.use(express.urlencoded({ extended: false }));
+app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
 app.use(
   cors({
@@ -59,4 +66,4 @@ mongoose
       console.log(`Server Running on port 🚀 ${port}`);
     });
   })
-  .catch(err => console.log(err));
+  .catch(err => console.log(`${err} did not connect`));
