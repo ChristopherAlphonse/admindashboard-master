@@ -1,5 +1,5 @@
-import UserImg from './Server/uploads/mario.jpg';
 import  bcrypt from 'bcryptjs';
+import fs from 'fs';
 import mongoose from 'mongoose';
 
 const userSchema = mongoose.Schema(
@@ -27,7 +27,7 @@ const userSchema = mongoose.Schema(
     photo: {
       type: String,
       required: [true, 'Please add a photo'],
-      default: UserImg,
+      default: base64Encode('./uploads/mario.jpg'),
     },
     phone: {
       type: String,
@@ -44,6 +44,11 @@ const userSchema = mongoose.Schema(
   }
 );
 
+// node does not recognize jpeg extension, adding this code to fix bug
+function base64Encode(file) {
+  const bitmap = fs.readFileSync(file);
+  return `data:image/jpeg;base64,${Buffer.from(bitmap).toString('base64')}`;
+}
 //   Encrypt password before saving to DB
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {

@@ -1,4 +1,4 @@
-import { contactUs } from '../controllers/contactController.js';
+import  contactUs  from '../controllers/contactController.js';
 import express from 'express';
 import protect from '../middleWare/authMiddleware.js';
 
