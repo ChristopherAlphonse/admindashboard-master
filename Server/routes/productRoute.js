@@ -1,14 +1,16 @@
-const express = require('express');
-const router = express.Router();
-const protect = require('../middleWare/authMiddleware');
-const {
+import {
   createProduct,
-  getProducts,
-  getProduct,
   deleteProduct,
+  getProduct,
+  getProducts,
   updateProduct,
-} = require('../controllers/productController');
-const { upload } = require('../utils/fileUpload');
+} from '../controllers/productController.js';
+
+import express from 'express';
+import protect from '../middleWare/authMiddleware.js';
+import { upload } from '../utils/fileUpload.js';
+
+const router = express.Router();
 
 router.post('/', protect, upload.single('image'), createProduct);
 router.patch('/:id', protect, upload.single('image'), updateProduct);
@@ -16,4 +18,4 @@ router.get('/', protect, getProducts);
 router.get('/:id', protect, getProduct);
 router.delete('/:id', protect, deleteProduct);
 
-module.exports = router;
+export default router;

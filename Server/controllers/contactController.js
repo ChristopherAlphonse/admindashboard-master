@@ -1,7 +1,9 @@
-const asyncHandler = require('express-async-handler');
-const User = require('../models/userModel');
-const sendEmail = require('../utils/sendEmail');
-const Joi = require('joi');
+import Joi from 'joi';
+import User from '../models/userModel.js';
+import asyncHandler from 'express-async-handler';
+import  sendEmail from '../utils/sendEmail.js';
+
+const {EMAIL_USER}=process.env;
 
 const contactUsSchema = Joi.object({
   subject: Joi.string().required(),
@@ -23,8 +25,8 @@ const contactUs = asyncHandler(async (req, res) => {
     throw new Error('User not found, please signup');
   }
 
-  const send_to = process.env.EMAIL_USER;
-  const sent_from = process.env.EMAIL_USER;
+  const send_to = EMAIL_USER;
+  const sent_from = EMAIL_USER;
   const reply_to = user.email;
   try {
     await sendEmail(subject, message, send_to, sent_from, reply_to);
@@ -35,6 +37,4 @@ const contactUs = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = {
-  contactUs,
-};
+export default contactUs;

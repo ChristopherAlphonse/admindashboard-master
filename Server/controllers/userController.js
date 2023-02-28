@@ -1,14 +1,16 @@
-const asyncHandler = require('express-async-handler');
-const User = require('../models/userModel');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const Token = require('../models/tokenModel');
-const crypto = require('crypto');
-const sendEmail = require('../utils/sendEmail');
+import Token from '../models/tokenModel.js';
+import User from '../models/userModel.js';
+import asyncHandler from 'express-async-handler';
+import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
+import jwt from 'jsonwebtoken';
+import sendEmail from '../utils/sendEmail.js';
+
+const {JWT_SECRET,FRONTEND_URL,EMAIL_USER}= process.env;
 
 // Generate Token
 const generateToken = id => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+  return jwt.sign({ id }, JWT_SECRET, { expiresIn: '1d' });
 };
 
 // Register User
@@ -158,7 +160,7 @@ const loginStatus = asyncHandler(async (req, res) => {
     return res.json(false);
   }
   // Verify Token
-  const verified = jwt.verify(token, process.env.JWT_SECRET);
+  const verified = jwt.verify(token, JWT_SECRET);
   if (verified) {
     return res.json(true);
   }
@@ -250,11 +252,13 @@ const forgotPassword = asyncHandler(async (req, res) => {
     userId: user._id,
     token: hashedToken,
     createdAt: Date.now(),
-    expiresAt: Date.now() + 05 * (60 * 1000), // five minutes
+    expiresAt: Date.now() + 15 * (60 * 1000), // change to 15 minutes, due to octal literal in strict mode
+
+
   }).save();
 
   // Construct Reset Url
-  const resetUrl = `${process.env.FRONTEND_URL}/resetpassword/${resetToken}`;
+  const resetUrl = `${FRONTEND_URL}/resetpassword/${resetToken}`;
 
   // Reset Email
   const message = `
@@ -617,7 +621,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
   `;
   const subject = 'Password Reset Request';
   const send_to = user.email;
-  const sent_from = process.env.EMAIL_USER;
+  const sent_from = EMAIL_USER;
 
   try {
     await sendEmail(subject, message, send_to, sent_from);
@@ -658,8 +662,10 @@ const resetPassword = asyncHandler(async (req, res) => {
   });
 });
 
-module.exports = {
-  registerUser,
+
+
+
+export default { registerUser,
   loginUser,
   logout,
   getUser,
@@ -667,5 +673,4 @@ module.exports = {
   updateUser,
   changePassword,
   forgotPassword,
-  resetPassword,
-};
+  resetPassword,}

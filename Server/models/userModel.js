@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const UserImg = './Server/uploads/mario.jpg';
+import UserImg from './Server/uploads/mario.jpg';
+import  bcrypt from 'bcryptjs';
+import mongoose from 'mongoose';
 
 const userSchema = mongoose.Schema(
   {
@@ -58,4 +58,4 @@ userSchema.pre('save', async function (next) {
 });
 
 const User = mongoose.model('User', userSchema);
-module.exports = User;
+export default User;

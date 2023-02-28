@@ -1,7 +1,7 @@
-const asyncHandler = require('express-async-handler');
-const Product = require('../models/productModel');
-const { fileSizeFormatter } = require('../utils/fileUpload');
-const cloudinary = require('cloudinary').v2;
+import Product from '../models/productModel.js';
+import asyncHandler from 'express-async-handler';
+import { v2 as cloudinary } from 'cloudinary';
+import { fileSizeFormatter } from '../utils/fileUpload.js';
 
 // Create Product
 const createProduct = asyncHandler(async (req, res) => {
@@ -136,10 +136,10 @@ const updateProduct = asyncHandler(async (req, res) => {
   res.status(200).json(product);
 });
 
-module.exports = {
-  createProduct,
+
+
+export default {createProduct,
   getProducts,
   getProduct,
   deleteProduct,
-  updateProduct,
-};
+  updateProduct,}
