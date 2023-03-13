@@ -9,13 +9,16 @@ import {
   Profile,
 } from "./pages/PagesIndex";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Forgot, Login, Register, Reset } from "./pages/auth/AuthIndex";
 import React, { useEffect } from "react";
 
+import Forgot from "./pages/auth/Forgot"
 import Home from "./pages/Home/Home";
 import Layout from "./components/layout/Layout";
+import Login from "./pages/auth/Login"
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
 import ProductDetail from "./components/product/productDetail/ProductDetail";
+import Register from "./pages/auth/Register"
+import Reset from "./pages/auth/Reset"
 import { SET_LOGIN } from "./redux/features/auth/authSlice";
 import Sidebar from "./components/sidebar/Sidebar";
 import { ToastContainer } from "react-toastify";

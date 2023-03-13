@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const name = JSON.parse(localStorage.getItem("name"));
+const name = JSON.parse(localStorage.getItem("name")) || "";
 
 const initialState = {
   isLoggedIn: false,
-  name: name ? name : "",
+  name: name,
   user: {
     name: "",
     email: "",
@@ -13,6 +13,7 @@ const initialState = {
     photo: "",
   },
 };
+
 
 const authSlice = createSlice({
   name: "auth",
