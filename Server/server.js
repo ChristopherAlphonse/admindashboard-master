@@ -26,7 +26,7 @@ app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors({ origin: [FRONTEND_URL, "https://invent.christopheralphonse.com/"], credentials: true }));
+app.use(cors({ origin: [FRONTEND_URL, "http://localhost:5173"], credentials: true }));
 app.use(cookieParser());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
