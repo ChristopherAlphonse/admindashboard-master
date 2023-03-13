@@ -3,7 +3,6 @@ import contactRoute from './routes/contactRoute.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import errorHandler from './middleware/errorMiddleware.js';
 import express from 'express';
 import { fileURLToPath } from 'url';
 import helmet from 'helmet';
@@ -42,7 +41,7 @@ app.get('/', (req, res) => {
 
 // mongoose.set('strictQuery', false);
 // Error Middleware
-app.use(errorHandler);
+
 
 // Connect to DB and start server
 mongoose
