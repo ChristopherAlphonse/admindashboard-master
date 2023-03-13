@@ -27,7 +27,7 @@ app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors({
-  origin: ['https://invent.christopheralphonse.com/', 'https://server-19tx.onrender.com',"http://localhost:5173/"],
+  origin: [ 'https://server-19tx.onrender.com',"http://localhost:5173/",'https://invent.christopheralphonse.com/'],
   
 }));
 
@@ -41,7 +41,15 @@ app.use('/api/users', userRoute);
 app.use('/api/products', productRoute);
 app.use('/api/contactus', contactRoute);
 app.get('/', (req, res) => {
-  res.send('Home Page');
+  res.status(200).send(`
+  <div style="display: flex;
+   justify-content: center;
+    align-items: center; 
+    height: 100vh;">
+  <h1>INVENT API</h1>
+</div>
+
+`);
 });
 
 
