@@ -27,14 +27,10 @@ app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors({
-  origin: ['https://invent.christopheralphonse.com/', 'https://server-19tx.onrender.com'],
-  credentials: false,
+  origin: ['https://invent.christopheralphonse.com/', 'https://server-19tx.onrender.com',"http://localhost:5173/"],
+  
 }));
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Credentials', 'false');
-  next();
-});
 
 
 app.use(cookieParser());
