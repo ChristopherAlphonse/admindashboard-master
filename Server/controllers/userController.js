@@ -8,9 +8,10 @@ import sendEmail from '../utils/sendEmail.js';
 
 const {JWT_SECRET,FRONTEND_URL,EMAIL_USER}= process.env;
 
+
 // Generate Token
-const generateToken = id => {
-  return jwt.sign({ id }, JWT_SECRET, { expiresIn: '1d' });
+const generateToken = (id) => {
+  return jwt.sign({ id }, JWT_SECRET, { expiresIn: "1d" });
 };
 
 // Register User
@@ -20,11 +21,11 @@ const registerUser = asyncHandler(async (req, res) => {
   // Validation
   if (!name || !email || !password) {
     res.status(400);
-    throw new Error('Please fill in all required fields');
+    throw new Error("Please fill in all required fields");
   }
   if (password.length < 6) {
     res.status(400);
-    throw new Error('Password must be up to 6 characters');
+    throw new Error("Password must be up to 6 characters");
   }
 
   // Check if user email already exists
@@ -32,7 +33,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (userExists) {
     res.status(400);
-    throw new Error('Email has already been registered');
+    throw new Error("Email has already been registered");
   }
 
   // Create new user
@@ -46,11 +47,11 @@ const registerUser = asyncHandler(async (req, res) => {
   const token = generateToken(user._id);
 
   // Send HTTP-only cookie
-  res.cookie('token', token, {
-    path: '/',
+  res.cookie("token", token, {
+    path: "/",
     httpOnly: true,
     expires: new Date(Date.now() + 1000 * 86400), // 1 day
-    sameSite: 'none',
+    sameSite: "none",
     secure: true,
   });
 
@@ -67,7 +68,7 @@ const registerUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error('Invalid user data');
+    throw new Error("Invalid user data");
   }
 });
 
@@ -78,7 +79,7 @@ const loginUser = asyncHandler(async (req, res) => {
   // Validate Request
   if (!email || !password) {
     res.status(400);
-    throw new Error('Please add email and password');
+    throw new Error("Please add email and password");
   }
 
   // Check if user exists
@@ -86,7 +87,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
   if (!user) {
     res.status(400);
-    throw new Error('User not found, please signup');
+    throw new Error("User not found, please signup");
   }
 
   // User exists, check if password is correct
@@ -94,16 +95,17 @@ const loginUser = asyncHandler(async (req, res) => {
 
   //   Generate Token
   const token = generateToken(user._id);
-
-  // Send HTTP-only cookie
-  res.cookie('token', token, {
-    path: '/',
+  
+  if(passwordIsCorrect){
+   // Send HTTP-only cookie
+  res.cookie("token", token, {
+    path: "/",
     httpOnly: true,
     expires: new Date(Date.now() + 1000 * 86400), // 1 day
-    sameSite: 'none',
+    sameSite: "none",
     secure: true,
   });
-
+}
   if (user && passwordIsCorrect) {
     const { _id, name, email, photo, phone, bio } = user;
     res.status(200).json({
@@ -117,20 +119,20 @@ const loginUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error('Invalid email or password');
+    throw new Error("Invalid email or password");
   }
 });
 
 // Logout User
 const logout = asyncHandler(async (req, res) => {
-  res.cookie('token', '', {
-    path: '/',
+  res.cookie("token", "", {
+    path: "/",
     httpOnly: true,
     expires: new Date(0),
-    sameSite: 'none',
+    sameSite: "none",
     secure: true,
   });
-  return res.status(200).json({ message: 'Successfully Logged Out' });
+  return res.status(200).json({ message: "Successfully Logged Out" });
 });
 
 // Get User Data
@@ -149,7 +151,7 @@ const getUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error('User Not Found');
+    throw new Error("User Not Found");
   }
 });
 
@@ -190,7 +192,7 @@ const updateUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 });
 
@@ -200,12 +202,12 @@ const changePassword = asyncHandler(async (req, res) => {
 
   if (!user) {
     res.status(400);
-    throw new Error('User not found, please signup');
+    throw new Error("User not found, please signup");
   }
   //Validate
   if (!oldPassword || !password) {
     res.status(400);
-    throw new Error('Please add old and new password');
+    throw new Error("Please add old and new password");
   }
 
   // check if old password matches password in DB
@@ -215,10 +217,10 @@ const changePassword = asyncHandler(async (req, res) => {
   if (user && passwordIsCorrect) {
     user.password = password;
     await user.save();
-    res.status(200).send('Password change successful');
+    res.status(200).send("Password change successful");
   } else {
     res.status(400);
-    throw new Error('Old password is incorrect');
+    throw new Error("Old password is incorrect");
   }
 });
 
@@ -228,7 +230,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
 
   if (!user) {
     res.status(404);
-    throw new Error('User does not exist');
+    throw new Error("User does not exist");
   }
 
   // Delete token if it exists in DB
@@ -237,24 +239,22 @@ const forgotPassword = asyncHandler(async (req, res) => {
     await token.deleteOne();
   }
 
-  // Create Reset Token
-  let resetToken = crypto.randomBytes(32).toString('hex') + user._id;
+  // Create Reste Token
+  let resetToken = crypto.randomBytes(32).toString("hex") + user._id;
   console.log(resetToken);
 
   // Hash token before saving to DB
   const hashedToken = crypto
-    .createHash('sha256')
+    .createHash("sha256")
     .update(resetToken)
-    .digest('hex');
+    .digest("hex");
 
   // Save Token to DB
   await new Token({
     userId: user._id,
     token: hashedToken,
     createdAt: Date.now(),
-    expiresAt: Date.now() + 15 * (60 * 1000), // change to 15 minutes, due to octal literal in strict mode
-
-
+    expiresAt: Date.now() + 30 * (60 * 1000), // Thirty minutes
   }).save();
 
   // Construct Reset Url
@@ -262,373 +262,25 @@ const forgotPassword = asyncHandler(async (req, res) => {
 
   // Reset Email
   const message = `
-  <body link="#4a7eb6" vlink="#4a7eb6" alink="#4a7eb6">
-  <style>
-    @media only screen and (max-width: 600px) {
-      .main {
-        width: 320px !important;
-      }
+      <h2>Hello ${user.name}</h2>
+      <p>Please use the url below to reset your password</p>  
+      <p>This reset link is valid for only 30minutes.</p>
 
-      .top-image {
-        width: 100% !important;
-      }
-      .inside-footer {
-        width: 320px !important;
-      }
-      table[class="contenttable"] {
-        width: 320px !important;
-        text-align: left !important;
-      }
-      td[class="force-col"] {
-        display: block !important;
-      }
-      td[class="rm-col"] {
-        display: none !important;
-      }
-      .mt {
-        margin-top: 15px !important;
-      }
-      *[class].width300 {
-        width: 255px !important;
-      }
-      *[class].block {
-        display: block !important;
-      }
-      *[class].blockcol {
-        display: none !important;
-      }
-      .emailButton {
-        width: 100% !important;
-      }
+      <a href=${resetUrl} clicktracking=off>${resetUrl}</a>
 
-      .emailButton a {
-        display: block !important;
-        font-size: 18px !important;
-      }
-    }
-  </style>
-
-  <table
-    class="main contenttable"
-    align="center"
-    style="
-      font-weight: normal;
-      border-collapse: collapse;
-      border: 0;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      color: #555559;
-      background-color: white;
-      font-size: 16px;
-      line-height: 26px;
-      width: 600px;
-    "
-  >
-    <tr>
-      <td
-        class="border"
-        style="
-          border-collapse: collapse;
-          border: 1px solid #eeeff0;
-          margin: 0;
-          padding: 0;
-          -webkit-text-size-adjust: none;
-          color: #555559;
-          font-family: Arial, sans-serif;
-          font-size: 16px;
-          line-height: 26px;
-        "
-      >
-        <table
-          style="
-            font-weight: normal;
-            border-collapse: collapse;
-            border: 0;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-          "
-        >
-          <tr>
-            <td
-              valign="top"
-              class="side title"
-              style="
-                border-collapse: collapse;
-                border: 0;
-                margin: 0;
-                padding: 20px;
-                -webkit-text-size-adjust: none;
-                color: #555559;
-                font-family: Arial, sans-serif;
-                font-size: 16px;
-                line-height: 26px;
-                vertical-align: top;
-                background-color: white;
-                border-top: none;
-              "
-            >
-              <table
-                style="
-                  font-weight: normal;
-                  border-collapse: collapse;
-                  border: 0;
-                  margin: 0;
-                  padding: 0;
-                  font-family: Arial, sans-serif;
-                "
-              >
-                <tr></tr>
-                <tr>
-                  <td
-                    class="top-padding"
-                    style="
-                      border-collapse: collapse;
-                      border: 0;
-                      margin: 0;
-                      padding: 5px;
-                      -webkit-text-size-adjust: none;
-                      color: #555559;
-                      font-family: Arial, sans-serif;
-                      font-size: 16px;
-                      line-height: 26px;
-                    "
-                  ></td>
-                </tr>
-                <tr>
-                  <td
-                    class="grey-block"
-                    style="
-                      border-collapse: collapse;
-                      border: 0;
-                      margin: 0;
-                      -webkit-text-size-adjust: none;
-                      color: #555559;
-                      font-family: Arial, sans-serif;
-                      font-size: 16px;
-                      line-height: 26px;
-                      background-color: #fff;
-                      text-align: center;
-                    "
-                  >
-                    <div class="mktEditable" id="cta">
-                      <img
-                        class="top-image"
-                        src="https://res.cloudinary.com/img-api-pager-2/image/upload/v1667612088/Noted/logo_cqd6pf.png"
-                        width="600"
-                        height="300"
-                      /><br />
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    class="top-padding"
-                    style="
-                      border-collapse: collapse;
-                      border: 0;
-                      margin: 0;
-                      padding: 15px 0;
-                      -webkit-text-size-adjust: none;
-                      color: #555559;
-                      font-family: Arial, sans-serif;
-                      font-size: 16px;
-                      line-height: 21px;
-                    "
-                  >
-                    <hr size="1" color="#eeeff0" />
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    class="text"
-                    style="
-                      border-collapse: collapse;
-                      border: 0;
-                      margin: 0;
-                      padding: 0;
-                      -webkit-text-size-adjust: none;
-                      color: #555559;
-                      font-family: Arial, sans-serif;
-                      font-size: 16px;
-                      line-height: 26px;
-                    "
-                  >
-                    <div class="mktEditable" id="main_text">
-                      <h1>Hello ${user.name},</h1>
-                      <p>
-                        We have received a password reset request from your
-                        account. If this is an error please ignore.
-                      </p>
-
-                      <a
-                        href="${resetUrl}"
-                        clicktracking="off"
-                        style="
-                          color: #ffffff;
-                          background-color: #4a7eb6;
-                          border: 10px solid #4a7eb6;
-                          border-radius: 3px;
-                          text-decoration: none;
-                        "
-                        >Reset Password</a
-                      >
-                      <br />
-                      <br />
-
-                      <div>Notice: This link expire in 5 minutes</div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    style="
-                      border-collapse: collapse;
-                      border: 0;
-                      margin: 0;
-                      padding: 0;
-                      -webkit-text-size-adjust: none;
-                      color: #555559;
-                      font-family: Arial, sans-serif;
-                      font-size: 16px;
-                      line-height: 24px;
-                    "
-                  >
-                    &nbsp;<br />
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          <tr>
-            <td
-              style="
-                padding: 20px;
-                font-family: Arial, sans-serif;
-                -webkit-text-size-adjust: none;
-              "
-              align="center"
-            >
-              <table>
-                <tr>
-                  <td
-                    align="center"
-                    style="
-                      font-family: Arial, sans-serif;
-                      -webkit-text-size-adjust: none;
-                      font-size: 16px;
-                    "
-                  >
-                    <a
-                      style="color: #4a7eb6"
-                      href="{{system.forwardToFriendLink}}"
-                      >Forward this Email</a
-                    >
-                    <br /><span
-                      style="
-                        font-size: 10px;
-                        font-family: Arial, sans-serif;
-                        -webkit-text-size-adjust: none;
-                      "
-                      >Please only forward this email to those who it may
-                      concern; do not share your password with anyone who may
-                      use it for malicious purposes.</span
-                    >
-                  </td>
-                </tr>
-              </table>
-              <br />
-              <table>
-                <tr>
-                  <td
-                    align="center"
-                    style="
-                      font-family: Arial, sans-serif;
-                      -webkit-text-size-adjust: none;
-                      font-size: 8px;
-                      text-decoration: none;
-                    "
-                  >
-                    <a style="color: #8c8f91" href="/">
-                      &#x2810;Terms & Conditions&#10256;
-                    </a>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-          <tr>
-            <td
-              style="
-                border-collapse: collapse;
-                border: 0;
-                margin: 0;
-                padding: 0;
-                -webkit-text-size-adjust: none;
-                color: #555559;
-                font-family: Arial, sans-serif;
-                font-size: 16px;
-                line-height: 24px;
-                padding: 20px;
-              "
-            >
-              <div class="mktEditable" id="cta_try">
-                <table
-                  border="0"
-                  cellpadding="0"
-                  cellspacing="0"
-                  class="mobile"
-                  style="
-                    font-weight: normal;
-                    border-collapse: collapse;
-                    border: 0;
-                    margin: 0;
-                    padding: 0;
-                    font-family: Arial, sans-serif;
-                  "
-                >
-                  <tr>
-                    <td
-                      class="force-col"
-                      valign="top"
-                      style="
-                        border-collapse: collapse;
-                        border: 0;
-                        margin: 0;
-                        padding: 0;
-                        -webkit-text-size-adjust: none;
-                        color: #555559;
-                        font-family: Arial, sans-serif;
-                        font-size: 16px;
-                        line-height: 24px;
-                      "
-                    ></td>
-                  </tr>
-                </table>
-              </div>
-            </td>
-          </tr>
-          <tr></tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-
-
-  `;
-  const subject = 'Password Reset Request';
+      <p>Regards...</p>
+      <p>Pinvent Team</p>
+    `;
+  const subject = "Password Reset Request";
   const send_to = user.email;
   const sent_from = EMAIL_USER;
 
   try {
     await sendEmail(subject, message, send_to, sent_from);
-    res.status(200).json({ success: true, message: 'Reset Email Sent' });
+    res.status(200).json({ success: true, message: "Reset Email Sent" });
   } catch (error) {
     res.status(500);
-    throw new Error('Email not sent, please try again');
+    throw new Error("Email not sent, please try again");
   }
 });
 
@@ -639,18 +291,19 @@ const resetPassword = asyncHandler(async (req, res) => {
 
   // Hash token, then compare to Token in DB
   const hashedToken = crypto
-    .createHash('sha256')
+    .createHash("sha256")
     .update(resetToken)
-    .digest('hex');
+    .digest("hex");
 
   // fIND tOKEN in DB
   const userToken = await Token.findOne({
     token: hashedToken,
     expiresAt: { $gt: Date.now() },
   });
+
   if (!userToken) {
     res.status(404);
-    throw new Error('Invalid or Expired Token');
+    throw new Error("Invalid or Expired Token");
   }
 
   // Find user
@@ -658,14 +311,12 @@ const resetPassword = asyncHandler(async (req, res) => {
   user.password = password;
   await user.save();
   res.status(200).json({
-    message: 'Password Reset Successful, Please Login',
+    message: "Password Reset Successful, Please Login",
   });
 });
 
-
-
-
-export default { registerUser,
+export  {
+  registerUser,
   loginUser,
   logout,
   getUser,
@@ -673,4 +324,5 @@ export default { registerUser,
   updateUser,
   changePassword,
   forgotPassword,
-  resetPassword,}
+  resetPassword,
+};

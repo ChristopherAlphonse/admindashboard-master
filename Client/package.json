@@ -10,7 +10,6 @@
     "lint": "eslint --ignore-path .gitignore --ext .js,.jsx .",
     "lint:fix": "eslint --ignore-path .gitignore --ext .js,.jsx --fix .",
     "checked": "ncu && ncu -u && yarn install && yarn autoclean --force",
-    "prepare": "husky install",
     "clean": "rimraf node_modules && rimraf dist ",
     "dev": " concurrently \" yarn dev:client\" \" yarn dev:server\"   ",
     "dev:server": "cd.. && cd server && yarn dev "
@@ -30,7 +29,6 @@
     "flowbite": "^1.6.4",
     "flowbite-react": "^0.4.2",
     "framer-motion": "^10.2.4",
-    "husky": "^8.0.3",
     "prettier-plugin-tailwindcss": "^0.2.4",
     "react": "^18.2.0",
     "react-confirm-alert": "^3.0.6",

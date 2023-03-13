@@ -1,19 +1,9 @@
-import {
-  changePassword,
-  forgotPassword,
-  getUser,
-  loginStatus,
-  loginUser,
-  logout,
-  registerUser,
-  resetPassword,
-  updateUser,
-} from '../controllers/userController.js';
+import { changePassword, forgotPassword, getUser, loginStatus, loginUser, logout, registerUser, resetPassword, updateUser } from '../controllers/userController.js';
 
 import express from 'express';
 import protect from '../middleWare/authMiddleware.js';
 
-const router = express.Router();
+const router = express.Router(); 
 
 
 router.post('/register', registerUser);
