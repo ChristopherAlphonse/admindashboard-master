@@ -49,7 +49,7 @@ const Hero = () => {
                       <div className="w-auto p-1">
                         <span className="text-gray-900">Book a call</span>
                       </div>
-                    </div>
+                    </div>``
                   </button>
                 </div>
               </div>

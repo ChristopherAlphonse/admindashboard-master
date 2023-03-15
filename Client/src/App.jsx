@@ -26,7 +26,7 @@ import axios from "axios";
 import { getLoginStatus } from "./services/authService";
 import { useDispatch } from "react-redux";
 
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials= true
 
 const App = () => {
   

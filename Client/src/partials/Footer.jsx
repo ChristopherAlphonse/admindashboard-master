@@ -1,27 +1,27 @@
-import { AiFillGithub } from "react-icons/ai";
-import { Link } from 'react-router-dom';
 import React from 'react';
-
+const date  =new Date()
+const year = date.getFullYear()
 const Footer = () => {
   return (
     <footer >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-       
-        <div className="md:flex md:items-center md:justify-between py-4 md:py-8 border-t ">
+      <footer className="bg-white dark:bg-gray-800">
+        <div className="max-w-screen-xl p-4 py-6 mx-auto lg:py-16 md:p-8 lg:p-10">
           
-          <ul className="flex mb-4 md:order-1 md:ml-4 md:mb-0">
-            <li className="ml-4">
-              <Link to="#" className="flex justify-center items-center rounded-full shadow transition duration-150 ease-in-out" aria-label="Github">
-                <AiFillGithub />
-              </Link>
-            </li>
-          </ul>
           
-          <div className="text-sm text-gray-600 mr-4">
-            Made by <span><a className='text-sm text-blue-800' href="https://christopheralphonse.com">Christopher Alphonse</a></span>. All rights reserved.
+          <div className="text-center">
+            
+            <span className="block text-sm text-center text-gray-500 dark:text-gray-400">© 0001-{year}  Built  by <p  className="hover:cursor-pointer  hover:text-purple-500/70 dark:text-purple-500">Christopher Alphonse </p>
+            </span>
+           
+              
+          
+             
+          
+              
+           
           </div>
         </div>
-      </div>
+      </footer>
     </footer>
   );
 }

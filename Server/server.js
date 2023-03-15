@@ -7,10 +7,10 @@ import express from 'express';
 import { fileURLToPath } from 'url';
 import helmet from 'helmet';
 import mongoose from 'mongoose';
+import morgan from 'morgan';
 import path from 'path';
 import productRoute from './routes/productRoute.js';
 import userRoute from './routes/userRoute.js';
-
 dotenv.config();
 
 const { FRONTEND_URL, MONGO_URI, DB_Message, PORT } = process.env;
@@ -27,7 +27,9 @@ app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors({
-  origin: [ 'https://server-19tx.onrender.com',"http://localhost:5173/",'https://invent.christopheralphonse.com/'],
+  origin: [ FRONTEND_URL],
+  credentials: true,
+  
   
 }));
 
@@ -53,8 +55,8 @@ app.get('/', (req, res) => {
 });
 
 
-// mongoose.set('strictQuery', false);
-// Error Middleware
+
+app.use(morgan('dev'));
 
 
 // Connect to DB and start server
@@ -66,7 +68,7 @@ mongoose
   })
   .then(() => {
     console.log(dbMessage);
-    app.listen(port, () => {
+    app.listen(port, '0.0.0.0', () => {
       console.log(`Server Running on port 🚀 ${port}`);
     });
   })
