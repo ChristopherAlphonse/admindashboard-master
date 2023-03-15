@@ -7,23 +7,23 @@ import {
   EditProduct,
   EditProfile,
   Profile,
-} from "./pages/PagesIndex";
+} from "../src/pages/PagesIndex";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React, { useEffect } from "react";
 
-import Forgot from "./pages/auth/Forgot"
-import Home from "./pages/Home/Home";
-import Layout from "./components/layout/Layout";
-import Login from "./pages/auth/Login"
-import PageNotFound from "./pages/PageNotFound/PageNotFound";
-import ProductDetail from "./components/product/productDetail/ProductDetail";
-import Register from "./pages/auth/Register"
-import Reset from "./pages/auth/Reset"
-import { SET_LOGIN } from "./redux/features/auth/authSlice";
-import Sidebar from "./components/sidebar/Sidebar";
+import Forgot from "../src/pages/auth/Forgot"
+import Home from "../src/pages/Home/Home";
+import Layout from "../src/components/layout/Layout";
+import Login from "../src/pages/auth/Login"
+import PageNotFound from "../src/pages/PageNotFound/PageNotFound";
+import ProductDetail from "../src/components/product/productDetail/ProductDetail";
+import Register from "../src/pages/auth/Register"
+import Reset from "../src/pages/auth/Reset"
+import { SET_LOGIN } from "../src/redux/features/auth/authSlice";
+import Sidebar from "../src/components/sidebar/Sidebar";
 import { ToastContainer } from "react-toastify";
 import axios from "axios";
-import { getLoginStatus } from "./services/authService";
+import { getLoginStatus } from "../src/services/authService";
 import { useDispatch } from "react-redux";
 
 axios.defaults.withCredentials= true
