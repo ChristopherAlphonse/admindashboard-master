@@ -10,7 +10,7 @@ const Footer = () => {
           
           <div className="text-center">
             
-            <span className="block text-sm text-center text-gray-500 dark:text-gray-400">© 0001-{year}  Built  by <p  className="hover:cursor-pointer  hover:text-purple-500/70 dark:text-purple-500">Christopher Alphonse </p>
+            <span className="block text-sm text-center text-gray-500 dark:text-gray-400">© Feb 2023 -{year}  Built  by <p  className="hover:cursor-pointer  hover:text-purple-500/70 dark:text-purple-500">Christopher Alphonse </p>
             </span>
            
               

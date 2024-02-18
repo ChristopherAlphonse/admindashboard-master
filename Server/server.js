@@ -1,4 +1,5 @@
 import bodyParser from 'body-parser';
+import chalk from 'chalk';
 import contactRoute from './routes/contactRoute.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -12,6 +13,7 @@ import path from 'path';
 import productRoute from './routes/productRoute.js';
 import userRoute from './routes/userRoute.js';
 dotenv.config();
+const log = console.log;
 
 const { FRONTEND_URL, MONGO_URI, DB_Message, PORT } = process.env;
 
@@ -67,11 +69,11 @@ mongoose
  
   })
   .then(() => {
-    console.log(dbMessage);
+    log(chalk.blueBright(dbMessage));
     app.listen(port, '0.0.0.0', () => {
-      console.log(`Server Running on port 🚀 ${port}`);
+ log(chalk.yellow(`Server Running on port 🚀 ${port}`));
     });
   })
   .catch((error) => {
-    console.log(error);
+   log(error);
   });
