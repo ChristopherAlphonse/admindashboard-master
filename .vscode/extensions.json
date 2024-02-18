@@ -1,11 +1,10 @@
 {
-  "recommendations": [
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    "mikestead.dotenv",
-    "csstools.postcss",
-    "blanu.vscode-styled-jsx",
-    "christopheralphonse.azalais-dark-theme",
-    "bradlc.vscode-tailwindcss"
-  ]
+    "recommendations": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "mikestead.dotenv",
+        "csstools.postcss",
+        "christopheralphonse.azalais-dark-theme",
+        "bradlc.vscode-tailwindcss"
+    ]
 }
